@@ -128,6 +128,8 @@ namespace QRScannerDemoApp.ViewModels
                             IsDetecting = false;
                             ImageVisible = true;
                             ScannerVisible = false;
+                            ScannerButtonText = "TARAMAYI BAŞLAT";
+
                         }
                         catch
                         {
@@ -135,6 +137,8 @@ namespace QRScannerDemoApp.ViewModels
                             IsDetecting = false;
                             ImageVisible = true;
                             ScannerVisible = false;
+                            ScannerButtonText = "TARAMAYI BAŞLAT";
+
                         }
 
                     }

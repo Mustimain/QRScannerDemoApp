@@ -6,6 +6,7 @@ using QRScannerDemoApp.Views;
 using ZXing.Net.Maui.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Plugin.Maui.Audio;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace QRScannerDemoApp;
 
@@ -35,7 +36,7 @@ public static class MauiProgram
                 });
 
 
-            }).UseBarcodeReader();
+            }).UseBarcodeReader().UseSkiaSharp();
 
         builder.Services.AddSingleton(AudioManager.Current);
 #if DEBUG

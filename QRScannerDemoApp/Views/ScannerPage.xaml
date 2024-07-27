@@ -4,6 +4,7 @@
              x:Class="QRScannerDemoApp.Views.ScannerPage"
              xmlns:zxing = "clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
              xmlns:prism = "http://prismlibrary.com" xmlns:local="clr-namespace:QRScannerDemoApp.Converters"
+             xmlns:skia = "clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              Title="ScannerPage" BackgroundColor="White">
 
     <ContentPage.Resources>
@@ -13,17 +14,15 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,10,0,10">
-            <Label  HorizontalOptions="Center" VerticalOptions="Center" Margin="10" Text="Scan QR Code" TextColor="Black" FontAttributes="Bold" FontSize="24"></Label>
-            <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="10" Text="Hızlı sonuç almak için lütfen kamerayı sallamaktan kaçının" TextColor="Black" FontAttributes="Bold" FontSize="18"></Label>
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="10,0,10,0">
+            <Label  HorizontalOptions="Center" VerticalOptions="Center" Margin="10" Text="QR Code Tarayıcı" TextColor="Black" FontAttributes="Bold" FontSize="24"></Label>
+            <Label HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="10" Text="Hızlı sonuç almak için lütfen kamerayı sallamaktan kaçınınız." TextColor="Black" FontAttributes="Bold" FontSize="18"></Label>
 
-            <AbsoluteLayout BackgroundColor="Red" Margin="10,30,10,30" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="300" >
+            <AbsoluteLayout BackgroundColor="Transparent" Margin="10,30,10,20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="300" >
 
-                <VerticalStackLayout HeightRequest="300" WidthRequest="300"  IsVisible="{Binding ImageVisible}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 
-                    <Image  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="200" Source="qr_scan_code"></Image>
+                <Image AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" HeightRequest="200" Source="qr_scan_code"></Image>
 
-                </VerticalStackLayout>
 
                 <VerticalStackLayout HeightRequest="300" IsVisible="{Binding ScannerVisible}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                     <Frame  CornerRadius="50" HeightRequest="300" WidthRequest="300" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -41,8 +40,8 @@
 
             </AbsoluteLayout>
 
-            <VerticalStackLayout>
-                <Grid Margin="0,20,0,20" HeightRequest="50" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
+            <VerticalStackLayout Margin="10,0,10,0">
+                <Grid Margin="0,10,0,10" HeightRequest="50" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -58,7 +57,7 @@
 
 
                 </Grid>
-                <Button  Margin="10" Text="{Binding ScannerButtonText}" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Command="{Binding StartScanCommand}"></Button>
+                <Button  Margin="0,10,0,10" Text="{Binding ScannerButtonText}" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Command="{Binding StartScanCommand}"></Button>
 
             </VerticalStackLayout>
 
