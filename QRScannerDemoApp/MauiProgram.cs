@@ -4,6 +4,8 @@ using Prism;
 using QRScannerDemoApp.ViewModels;
 using QRScannerDemoApp.Views;
 using ZXing.Net.Maui.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using Plugin.Maui.Audio;
 
 namespace QRScannerDemoApp;
 
@@ -36,6 +38,7 @@ public static class MauiProgram
 
             }).UseBarcodeReader();
 
+        builder.Services.AddSingleton(AudioManager.Current);
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
+using Plugin.Maui.Audio;
 using ZXing.Net.Maui;
 
 namespace QRScannerDemoApp.ViewModels
 {
     public class ScannerPageViewModel : BaseViewModel
     {
-        public ScannerPageViewModel(INavigationService navigationService) : base(navigationService)
+
+        private readonly IAudioManager _audioManager;
+        public ScannerPageViewModel(INavigationService navigationService, IAudioManager audioManager) : base(navigationService)
         {
+
+            _audioManager = audioManager;
             _customBarcodeReaderOptions = new BarcodeReaderOptions
             {
                 Formats = BarcodeFormat.QrCode,
@@ -43,6 +48,45 @@ namespace QRScannerDemoApp.ViewModels
             }
         }
 
+        private bool _imageVisible = true;
+        public bool ImageVisible
+        {
+            get
+            {
+                return _imageVisible;
+            }
+            set
+            {
+                _imageVisible = value; RaisePropertyChanged();
+            }
+        }
+
+        private bool _scannerVisible = false;
+        public bool ScannerVisible
+        {
+            get
+            {
+                return _scannerVisible;
+            }
+            set
+            {
+                _scannerVisible = value; RaisePropertyChanged();
+            }
+        }
+
+        private bool _isDetecting = false;
+        public bool IsDetecting
+        {
+            get
+            {
+                return _isDetecting;
+            }
+            set
+            {
+                _isDetecting = value; RaisePropertyChanged();
+            }
+        }
+
         public ICommand BarcodesDetectedCommand
         {
             get
@@ -50,20 +94,57 @@ namespace QRScannerDemoApp.ViewModels
                 return new Command(async (object param) =>
                 {
 
+
                     if (param is BarcodeDetectionEventArgs e)
                     {
-                        var barcode = e.Results.FirstOrDefault();
-                        if (barcode != null)
+
+                        try
                         {
-                            Console.WriteLine($"Detected barcode: {barcode.Value} (Type: {barcode.Format})");
+                            var barcode = e.Results.FirstOrDefault();
+                            if (barcode != null)
+                            {
+                                var cleanBarcodeValue = barcode.Value.Trim().Replace("\n", "").Replace("\r", "");
+                                var soundValue = cleanBarcodeValue + ".mp3";
+
+                                var audioPlayer = _audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync(soundValue));
+                                audioPlayer.Play();
+
+                            }
+
+                            IsDetecting = false;
+                            ImageVisible = true;
+                            ScannerVisible = false;
+                        }
+                        catch
+                        {
 
                         }
 
                     }
+
+                });
+            }
+        }
+
+        public ICommand StartScanCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    if (IsDetecting == false)
+                    {
+                        ImageVisible = false;
+                        ScannerVisible = true;
+                        IsDetecting = true;
+                    }
                     else
                     {
-                        Console.WriteLine("Parameter is not of type BarcodeDetectionEventArgs");
+                        ImageVisible = true;
+                        ScannerVisible = false;
+                        IsDetecting = false;
                     }
+
 
                 });
             }

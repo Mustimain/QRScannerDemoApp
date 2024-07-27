@@ -13,23 +13,35 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <VerticalStackLayout>
-            <Label Text=" Deneme " TextColor="Black" FontAttributes="Bold" FontSize="28"></Label>
-            <zxing:BarcodeGeneratorView
-  HeightRequest="100"
-  WidthRequest="100"
-  ForegroundColor="DarkBlue"
-  Value="https://dotnet.microsoft.com"
-  Format="QrCode"
-  Margin="3" />
-            <zxing:CameraBarcodeReaderView HeightRequest="300" WidthRequest="300" BackgroundColor="Red"  Options="{Binding CustomBarcodeReaderOptions}">
-                <zxing:CameraBarcodeReaderView.Behaviors>
-                    <prism:EventToCommandBehavior  EventName="BarcodesDetected" Command="{Binding BarcodesDetectedCommand}" EventArgsConverter="{StaticResource BarcodeDetectionEventArgsConverter}"></prism:EventToCommandBehavior>
+        <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="10">
+            <Label  HorizontalOptions="Center" VerticalOptions="Center" Margin="10" Text="Scan QR Code" TextColor="Black" FontAttributes="Bold" FontSize="24"></Label>
+            <Label HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" Margin="10" Text="Hızlı sonuç almak için lütfen kamerayı sallamaktan kaçının" TextColor="Black" FontAttributes="Bold" FontSize="18"></Label>
 
-                </zxing:CameraBarcodeReaderView.Behaviors>
+            <StackLayout Margin="10,30,10,30" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="300" >
+                <StackLayout IsVisible="{Binding ImageVisible}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 
-            </zxing:CameraBarcodeReaderView>
+                    <Image  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="200" WidthRequest="200" Source="qr_scan_code"></Image>
 
+                </StackLayout>
+                <StackLayout IsVisible="{Binding ScannerVisible}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Frame  CornerRadius="50" HeightRequest="300" WidthRequest="300" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                        <zxing:CameraBarcodeReaderView IsDetecting="{Binding IsDetecting}"   HeightRequest="300" WidthRequest="300" HorizontalOptions="FillAndExpand"  BackgroundColor="Red" VerticalOptions="CenterAndExpand"  Options="{Binding CustomBarcodeReaderOptions}">
+                            <zxing:CameraBarcodeReaderView.Behaviors>
+                                <prism:EventToCommandBehavior  EventName="BarcodesDetected" Command="{Binding BarcodesDetectedCommand}" EventArgsConverter="{StaticResource BarcodeDetectionEventArgsConverter}"></prism:EventToCommandBehavior>
+
+                            </zxing:CameraBarcodeReaderView.Behaviors>
+
+                        </zxing:CameraBarcodeReaderView>
+                    </Frame>
+
+                </StackLayout>
+
+
+
+
+            </StackLayout>
+            <Button WidthRequest="200" Margin="10,10,10,10" Text="QR OKU" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Command="{Binding StartScanCommand}"></Button>
         </VerticalStackLayout>
 
     </ContentPage.Content>
