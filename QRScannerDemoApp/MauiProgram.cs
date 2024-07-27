@@ -26,7 +26,6 @@ public static class MauiProgram
                 prism.RegisterTypes(container =>
                 {
                     container.RegisterForNavigation<NavigationPage>();
-                    container.RegisterForNavigation<MainPage, MainPageViewModel>();
                     container.RegisterForNavigation<ScannerPage, ScannerPageViewModel>();
 
 

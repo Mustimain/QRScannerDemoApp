@@ -48,6 +48,19 @@ namespace QRScannerDemoApp.ViewModels
             }
         }
 
+        private string _scannerButtonText = "TARAMAYI BAŞLAT";
+        public string ScannerButtonText
+        {
+            get
+            {
+                return _scannerButtonText;
+            }
+            set
+            {
+                _scannerButtonText = value; RaisePropertyChanged();
+            }
+        }
+
         private bool _imageVisible = true;
         public bool ImageVisible
         {
@@ -104,6 +117,7 @@ namespace QRScannerDemoApp.ViewModels
                             if (barcode != null)
                             {
                                 var cleanBarcodeValue = barcode.Value.Trim().Replace("\n", "").Replace("\r", "");
+                                BarcodeText = cleanBarcodeValue;
                                 var soundValue = cleanBarcodeValue + ".mp3";
 
                                 var audioPlayer = _audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync(soundValue));
@@ -118,6 +132,9 @@ namespace QRScannerDemoApp.ViewModels
                         catch
                         {
 
+                            IsDetecting = false;
+                            ImageVisible = true;
+                            ScannerVisible = false;
                         }
 
                     }
@@ -134,12 +151,16 @@ namespace QRScannerDemoApp.ViewModels
                 {
                     if (IsDetecting == false)
                     {
+                        ScannerButtonText = "TARAMAYI BİTİR";
+                        BarcodeText = "";
                         ImageVisible = false;
                         ScannerVisible = true;
                         IsDetecting = true;
                     }
                     else
                     {
+                        ScannerButtonText = "TARAMAYI BAŞLAT";
+                        BarcodeText = "";
                         ImageVisible = true;
                         ScannerVisible = false;
                         IsDetecting = false;

@@ -7,13 +7,8 @@
     Shell.FlyoutBehavior="Disabled"
     Shell.TitleColor="White"
 
-    Title="QRScannerDemoApp">
-
-    <ShellContent
-        
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    Title="QRScannerDemoApp">        
+      
 
 </Shell>
 
