@@ -5,9 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:QRScannerDemoApp"
     Shell.FlyoutBehavior="Disabled"
+    Shell.TitleColor="White"
+
     Title="QRScannerDemoApp">
 
     <ShellContent
+        
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
