@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QRScannerDemoApp.Views.ScannerPage"
+             xmlns:zxing = "clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             xmlns:prism = "http://prismlibrary.com" xmlns:local="clr-namespace:QRScannerDemoApp.Converters"
+             Title="ScannerPage" BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BarcodeDetectionEventArgsConverter x:Key="BarcodeDetectionEventArgsConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <VerticalStackLayout>
+            <Label Text=" Deneme " TextColor="Black" FontAttributes="Bold" FontSize="28"></Label>
+            <zxing:BarcodeGeneratorView
+  HeightRequest="100"
+  WidthRequest="100"
+  ForegroundColor="DarkBlue"
+  Value="https://dotnet.microsoft.com"
+  Format="QrCode"
+  Margin="3" />
+            <zxing:CameraBarcodeReaderView HeightRequest="300" WidthRequest="300" BackgroundColor="Red"  Options="{Binding CustomBarcodeReaderOptions}">
+                <zxing:CameraBarcodeReaderView.Behaviors>
+                    <prism:EventToCommandBehavior  EventName="BarcodesDetected" Command="{Binding BarcodesDetectedCommand}" EventArgsConverter="{StaticResource BarcodeDetectionEventArgsConverter}"></prism:EventToCommandBehavior>
+
+                </zxing:CameraBarcodeReaderView.Behaviors>
+
+            </zxing:CameraBarcodeReaderView>
+
+        </VerticalStackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>
